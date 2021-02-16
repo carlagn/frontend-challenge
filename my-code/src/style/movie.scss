@@ -3,8 +3,11 @@
         display: flex;
         justify-content: space-between;
         margin: 32px 0; 
-
+        @media (max-width: 780px) {
+            position: relative;
+        }
         .movie-content {
+            width: 50%;
             max-width: 580px;
             padding-right: 60px;
             color: #fff;
@@ -38,12 +41,18 @@
                 font-size: 80px;
                 line-height: 88px;
                 margin-bottom: 32px;
+                @media screen and (max-width: 1100px) {
+                    font-size: 54px;
+                    line-height: 60px;
+                }
             }
             .movie-badges {
                 display: flex;
-                margin-bottom: 48px;
-                > div {
+                margin-bottom: 32px;
+                flex-wrap: wrap;
+                > div, button {
                     margin-right: 16px;
+                    margin-bottom: 16px;
                 }
             }
             .movie-section {
@@ -67,16 +76,29 @@
                     display: flex;
                     flex-wrap: wrap;
                     margin: 0 -28px;
+                    @media (max-width: 780px) {
+                        position: absolute;
+                        margin: 0;
+                        width: calc(100% + 56px);
+                        left: -28px;
+                    }
                 }
             }
         }
         .movie-poster {
             margin-top: 56px;
+            width: 50%;
             img {
                 object-fit: cover;
-                width: 480px;
-                padding-left: 60px;
+                width: 100%;
                 max-height: 640px;
+            }
+            @media (max-width: 780px) {
+                text-align: right;
+                img {
+                    max-height: 300px;
+                    width: auto;
+                }
             }
         }
 

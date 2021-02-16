@@ -8,6 +8,12 @@ type Props = {
 
 export default function GridView(props: Props) {
     const [activeMovie, setActiveMovie] = useState("");
+
+    const addFavourite = (title: string) => {
+        console.log(document.cookie);
+        console.log(title);
+    }
+
     return (
         <div className="temp-width">
             {!activeMovie ? (<div className="grid-wrapper">
@@ -15,7 +21,7 @@ export default function GridView(props: Props) {
                     <div className="grid-item" onClick={() => setActiveMovie(movie.imdbID)}>
                         <div className="backdrop">
                             <div className="movie-info">
-                                <div className="movie-title">
+                                <div className="movie-title" onClick={() => addFavourite(movie.Title)}>
                                     {movie.Title}
                                 </div>
                                 <div className="movie-year">
