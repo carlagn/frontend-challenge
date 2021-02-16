@@ -10,6 +10,7 @@ import heartWhite from './assets/icons/icon-heart-white.svg';
 import heartFull from './assets/icons/icon-heart-full.svg';
 import LogoLabel from './components/LogoLabel';
 import Button from './components/Button';
+import Loading from './components/Loading';
 
 type Props = {
     imdbID: string | null,
@@ -17,14 +18,17 @@ type Props = {
 }
 
 function Movie(props: Props) {
+    const [loading, setLoading] = useState(false);
     const [movieInfo, setMovieInfo] = useState<any>(null);
     const [hoverExit, setHoverExit] = useState<boolean>(false);
     const [iconHeart, setIconHeart] = useState<boolean>(false);
     const [added, addMovie] = useState<boolean>(false);
     useEffect(() => {
+        setLoading(true)
         fetch(`http://www.omdbapi.com/?apikey=193a013b&i=${props.imdbID}&plot=short&tomatoes=true`)
         .then(res => res.json())
         .then((result) => {
+            setLoading(false)
             let info = null
             if (result.Response === "True") info = result
             else {
@@ -39,7 +43,8 @@ function Movie(props: Props) {
         return []
     }
   return (
-    <div className="movie-wrapper">
+      loading ? (<Loading />) :
+    (<div className="movie-wrapper">
         <div className="movie-content">
         <div
             className="exit"
@@ -88,7 +93,7 @@ function Movie(props: Props) {
         <div className="movie-poster">
             <img src={movieInfo?.Poster} />
         </div>
-    </div>
+    </div>)
   );
 }
 
