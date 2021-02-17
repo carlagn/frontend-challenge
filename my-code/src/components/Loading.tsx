@@ -4,7 +4,7 @@ import logo from '../assets/logos/logo.svg';
 
 export default function Loading() {
   return (
-    <div className="loading-wrapper">
+    <div className="loading-wrapper" data-testid="loading-wrapper">
         <div className="logo-animation">
             <img src={logo} />
         </div>

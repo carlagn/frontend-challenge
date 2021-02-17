@@ -25,6 +25,9 @@
             padding-left: 30px;
             padding-right: 30px;
         }
+        @media (max-width: 455px) {
+            padding-bottom: 150%;
+        }
 
         .content {
             display: flex;

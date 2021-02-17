@@ -2,7 +2,7 @@
     &-wrapper {
         display: flex;
         justify-content: space-between;
-        margin: 32px 0; 
+        margin: 32px 0;
         @media (max-width: 780px) {
             position: relative;
         }
@@ -13,6 +13,9 @@
             color: #fff;
             @media (max-width: 780px) {
                 padding-right: 30px;
+            }
+            @media (max-width: 495px) {
+                padding-right: 16px;
             }
 
             .rating {
@@ -27,6 +30,9 @@
                     font-weight: bold;
                     padding: 2px 6px;
                 }
+                @media (max-width: 455px) {
+                    font-size: 12px;
+                }
             }
 
             .movie-small {
@@ -40,6 +46,9 @@
                 @media (max-width: 780px) {
                     margin-bottom: 12px;
                     font-size: 14px;
+                }
+                @media (max-width: 455px) {
+                    font-size: 12px;
                 }
                 > * {
                     padding-left: 4px;
@@ -70,16 +79,39 @@
                 display: flex;
                 margin-bottom: 32px;
                 flex-wrap: wrap;
+                @media (max-width: 495px) {
+                    position: absolute;
+                    top: calc(100% + 16px);
+                }
+                @media (max-width: 455px) {
+                    margin-bottom: 0;
+                    width: 100%;
+                }
                 > div, button {
                     margin-right: 16px;
                     margin-bottom: 16px;
+                }
+                > button {
+                    @media (max-width: 495px) {
+                        margin-right: 0;
+                        margin-left: auto;
+
+                        span {
+                            display: none;
+                        }
+                        img {
+                            margin-right: 0;
+                        }
+                    }
                 }
             }
             .movie-section {
                 margin-bottom: 40px;
                 padding: 0 28px;
                 max-width: 30%;
-
+                @media (max-width: 495px) {
+                    padding: 0 15px;
+                }
                 &.plot {
                     max-width: 100%;
                 }
@@ -105,9 +137,15 @@
                     @media (max-width: 780px) {
                         position: absolute;
                         margin: 0;
-                        width: calc(100% + 56px);
-                        left: -28px;
+                        width: calc(100% + 60px);
+                        left: -30px;
                     }
+                    @media (max-width: 495px) {
+                        top: calc(100% + 109px);
+                        width: calc(100% + 30px);
+                        padding: 0 15px;
+                    }
+
                 }
             }
         }
@@ -122,12 +160,15 @@
                 max-height: 640px;
             }
             @media (max-width: 780px) {
-                margin-top: 0;
+                margin-top: 40px;
                 text-align: right;
                 img {
                     max-height: 300px;
                     width: 100%;
                 }
+            }
+            @media (max-width: 620px) {
+                margin-top: 40px;
             }
         }
 
@@ -138,6 +179,10 @@
             width: 24px;
             height: 24px;
             background-repeat: no-repeat;
+            @media (max-width: 495px) {
+                margin-bottom: 16px;
+            }
+            
         }
     }
 }

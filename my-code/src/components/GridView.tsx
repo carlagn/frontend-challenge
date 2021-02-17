@@ -13,18 +13,21 @@ export default function GridView(props: Props) {
     const [favourites, setFavourites] = useState("");
 
     const addFavourite = (event: React.MouseEvent<HTMLElement>, id: string) => {
-        if (!document.cookie.includes("favourites"))
-            document.cookie = `favourites=${id}`
-
-        else if (!document.cookie.includes(";") && !document.cookie.includes(id)){
-            document.cookie = `${document.cookie},${id}`
-        }
-
-        else if (!document.cookie.includes(";") && document.cookie.includes(id)) {
-            const finalCookie = document.cookie.replace(`,${id}`, "")
-            document.cookie = finalCookie
-        }
+        let favouritesCookie = document.cookie.split("favourites=")[1]
+        if (favouritesCookie.includes(";"))
+            favouritesCookie = favouritesCookie.split(";")[0]
         
+        if (!document.cookie.includes("favourites="))
+            document.cookie = `favourites=${id}`
+        
+        else if (!document.cookie.includes(id))
+            document.cookie = `favourites=${favouritesCookie}${id}`
+        
+        else if (document.cookie.includes(id)) {
+            const finalCookie = favouritesCookie.replace(`${id}`, "")
+            document.cookie = `favourites=${finalCookie}`
+        }
+
         setFavourites(document.cookie)
         event.stopPropagation()
     }
@@ -38,9 +41,14 @@ export default function GridView(props: Props) {
 
     return (
         <div className="temp-width">
-            {!activeMovie ? (<div className="grid-wrapper">
+            {!activeMovie ? (<div className="grid-wrapper" data-testid="grid-wrapper">
             {props.movies.map((movie) =>
-                    <div className="grid-item" onClick={() => setActiveMovie(movie.imdbID)} key={movie.imdbID}>
+                    <div
+                        className="grid-item"
+                        onClick={() => setActiveMovie(movie.imdbID)}
+                        key={movie.imdbID}
+                        data-testid="grid-item"
+                    >
                         <div className="backdrop">
                             <div className="like-btn" onClick={(e) => addFavourite(e, movie.imdbID)}>
                                 <img src={isMovieLiked(movie.imdbID) ? fullHeartIcon : emptyHeartIcon} />

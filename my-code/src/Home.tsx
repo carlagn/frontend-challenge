@@ -12,7 +12,7 @@ function Home() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (searchInput.length > 0) {
+    if (searchInput.length > 1) {
       setLoading(true);
       fetch(`http://www.omdbapi.com/?apikey=193a013b&s=${encodeURIComponent(searchInput)}`)
       .then(res => res.json())
@@ -36,7 +36,7 @@ function Home() {
         <div className="content">
           {loading ? (<Loading />) : resultArray ?
           (<GridView movies={moviesArray}/>) : 
-          (<div className="not-found">
+          (<div className="not-found" data-testid="not-found">
             <img src={deadHorse} className="dead-horse" />
             <h2>Don't know what to search?</h2>
             <p>Here's an offer you can't refuse</p>

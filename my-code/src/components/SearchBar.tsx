@@ -18,7 +18,15 @@ export default function SearchBar(props: Props) {
     <div className="searchbar-wrapper">
       <div className="searchbar-container">
         <img src={searchIcon} className="search-icon" alt="logo" />
-        <input type="text" id="movie-query" name="movie-query" onChange={updateMovieQuery} value={movieQuery} placeholder="Search movies..." />
+        <input
+          type="text"
+          id="movie-query"
+          name="movie-query"
+          onChange={updateMovieQuery}
+          value={movieQuery}
+          placeholder="Search movies..."
+          data-testid="search-input"
+        />
       </div>
     </div>
   );

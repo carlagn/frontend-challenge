@@ -19,7 +19,7 @@ export default function Button(props: Props) {
       onClick={(e) => props.onClick(e)}
     >
         <img src={props.icon} />
-        {props.text}
+        <span>{props.text}</span>
     </button>
   );
 }

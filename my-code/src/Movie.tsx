@@ -46,7 +46,7 @@ function Movie(props: Props) {
     }
   return (
       loading ? (<Loading />) :
-    (<div className="movie-wrapper">
+    (<div className="movie-wrapper" data-testid="movie-wrapper">
         <div className="movie-content">
         <div
             className="exit"
