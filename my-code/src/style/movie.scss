@@ -11,6 +11,9 @@
             max-width: 580px;
             padding-right: 60px;
             color: #fff;
+            @media (max-width: 780px) {
+                padding-right: 30px;
+            }
 
             .rating {
                 font-size: 16px;
@@ -19,6 +22,11 @@
                 color: #0A1014;
                 margin-left: 8px;
                 padding: 4px 6px;
+                @media (max-width: 780px) {
+                    font-size: 14px;
+                    font-weight: bold;
+                    padding: 2px 6px;
+                }
             }
 
             .movie-small {
@@ -29,6 +37,10 @@
                 margin-bottom: 24px;
                 display: flex;
                 align-items: center;
+                @media (max-width: 780px) {
+                    margin-bottom: 12px;
+                    font-size: 14px;
+                }
                 > * {
                     padding-left: 4px;
                     &.rating {
@@ -38,14 +50,22 @@
             }
             .movie-title {
                 font-weight: bold;
-                font-size: 80px;
-                line-height: 88px;
                 margin-bottom: 32px;
-                @media screen and (max-width: 1100px) {
-                    font-size: 54px;
-                    line-height: 60px;
+                font-size: 30px;
+                line-height: 40px;
+                @media (min-width: 620px) {
+                    font-size: 34px;
+                    line-height: 40px;
                 }
-            }
+                @media (min-width: 780px) {
+                    font-size: 44px;
+                    line-height: 50px;
+                }
+                @media screen and (min-width: 1100px) {
+                    font-size: 60px;
+                    line-height: 68px;
+                }
+        }
             .movie-badges {
                 display: flex;
                 margin-bottom: 32px;
@@ -58,6 +78,12 @@
             .movie-section {
                 margin-bottom: 40px;
                 padding: 0 28px;
+                max-width: 30%;
+
+                &.plot {
+                    max-width: 100%;
+                }
+
                 .section-title {
                     color: #7A8C99;
                     font-weight: 500;
@@ -88,16 +114,19 @@
         .movie-poster {
             margin-top: 56px;
             width: 50%;
+            max-width: 480px;
             img {
                 object-fit: cover;
                 width: 100%;
+                border-radius: 8px;
                 max-height: 640px;
             }
             @media (max-width: 780px) {
+                margin-top: 0;
                 text-align: right;
                 img {
                     max-height: 300px;
-                    width: auto;
+                    width: 100%;
                 }
             }
         }

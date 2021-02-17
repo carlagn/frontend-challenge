@@ -14,7 +14,9 @@ import Loading from './components/Loading';
 
 type Props = {
     imdbID: string | null,
-    setActiveMovie: (value: string) => void
+    setActiveMovie: (value: string) => void,
+    addToFavourites: (event: React.MouseEvent<HTMLElement>, value: string) => void
+    isFavourite: boolean
 }
 
 function Movie(props: Props) {
@@ -22,7 +24,7 @@ function Movie(props: Props) {
     const [movieInfo, setMovieInfo] = useState<any>(null);
     const [hoverExit, setHoverExit] = useState<boolean>(false);
     const [iconHeart, setIconHeart] = useState<boolean>(false);
-    const [added, addMovie] = useState<boolean>(false);
+
     useEffect(() => {
         setLoading(true)
         fetch(`http://www.omdbapi.com/?apikey=193a013b&i=${props.imdbID}&plot=short&tomatoes=true`)
@@ -64,29 +66,35 @@ function Movie(props: Props) {
                 <LogoLabel icon={imdbLogo} text={movieInfo?.imdbRating} color="yellow"/>
                 <LogoLabel icon={rtLogo} text={movieInfo?.tomatoMeter} color="red"/>
                 <Button
-                    icon={added ? heartFull : (iconHeart ? heartWhite : heartGrey)}
-                    text={ added ? "Added" : "Add to favourites"}
-                    active={added}
+                    icon={props.isFavourite ? heartFull : (iconHeart ? heartWhite : heartGrey)}
+                    text={ props.isFavourite ? "Added" : "Add to favourites"}
+                    active={props.isFavourite}
                     onEnter={setIconHeart}
-                    onClick={() => addMovie(!added)}
+                    onClick={(e) => props.addToFavourites(e, props.imdbID || "")}
                 />
             </div>
             <div className="movie-section-wrapper">
-                <div className="movie-section">
+                <div className="movie-section plot">
                     <div className="section-title">Plot</div>
                     <p>{movieInfo?.Plot}</p>
                 </div>
                 <div className="movie-section">
                     <div className="section-title">Cast</div>
-                    {getArrayOf(movieInfo?.Actors).map(actor => (<p>{actor}</p>))}
+                    {getArrayOf(movieInfo?.Actors).map((actor, index) => (
+                        <p key={`a${index}`}>{actor}</p>
+                    ))}
                 </div>
                 <div className="movie-section">
-                    <div className="section-title">Genres{getArrayOf(movieInfo?.Genre).length > 1 && "s"}</div>
-                    {getArrayOf(movieInfo?.Genre).map(genre => (<p>{genre}</p>))}
+                    <div className="section-title">Genre{getArrayOf(movieInfo?.Genre).length > 1 && "s"}</div>
+                    {getArrayOf(movieInfo?.Genre).map((genre, index) => (
+                        <p key={`g${index}`}>{genre}</p>
+                    ))}
                 </div>
                 <div className="movie-section">
                     <div className="section-title">Director{getArrayOf(movieInfo?.Director).length > 1 && "s"}</div>
-                    {getArrayOf(movieInfo?.Director).map(genre => (<p>{genre}</p>))}
+                    {getArrayOf(movieInfo?.Director).map((director, index) => (
+                        <p key={`d${index}`}>{director}</p>
+                    ))}
                 </div>
             </div>
         </div>

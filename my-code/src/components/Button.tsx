@@ -6,7 +6,7 @@ type Props = {
   text: string,
   active: boolean,
   onEnter: (value: boolean) => void,
-  onClick: () => void
+  onClick: (e: React.MouseEvent<HTMLElement>) => void
 }
 
 export default function Button(props: Props) {
@@ -16,7 +16,7 @@ export default function Button(props: Props) {
       className={`button-wrapper ${props.active && "active"}`}
       onMouseEnter={() => props.onEnter(true)}
       onMouseLeave={() => props.onEnter(false)}
-      onClick={() => props.onClick()}
+      onClick={(e) => props.onClick(e)}
     >
         <img src={props.icon} />
         {props.text}

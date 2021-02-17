@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../style/components.scss';
 import Movie from '../Movie';
+import emptyHeartIcon from '../assets/icons/icon-heart-white.svg';
+import fullHeartIcon from '../assets/icons/icon-heart-full.svg';
 
 type Props = {
     movies: Array<any>,
@@ -8,20 +10,43 @@ type Props = {
 
 export default function GridView(props: Props) {
     const [activeMovie, setActiveMovie] = useState("");
+    const [favourites, setFavourites] = useState("");
 
-    const addFavourite = (title: string) => {
-        console.log(document.cookie);
-        console.log(title);
+    const addFavourite = (event: React.MouseEvent<HTMLElement>, id: string) => {
+        if (!document.cookie.includes("favourites"))
+            document.cookie = `favourites=${id}`
+
+        else if (!document.cookie.includes(";") && !document.cookie.includes(id)){
+            document.cookie = `${document.cookie},${id}`
+        }
+
+        else if (!document.cookie.includes(";") && document.cookie.includes(id)) {
+            const finalCookie = document.cookie.replace(`,${id}`, "")
+            document.cookie = finalCookie
+        }
+        
+        setFavourites(document.cookie)
+        event.stopPropagation()
+    }
+
+    const isMovieLiked = (id: string) => {
+        if (document.cookie.includes(id) && favourites.includes(id)) {
+            return true
+        }
+        return false
     }
 
     return (
         <div className="temp-width">
             {!activeMovie ? (<div className="grid-wrapper">
             {props.movies.map((movie) =>
-                    <div className="grid-item" onClick={() => setActiveMovie(movie.imdbID)}>
+                    <div className="grid-item" onClick={() => setActiveMovie(movie.imdbID)} key={movie.imdbID}>
                         <div className="backdrop">
+                            <div className="like-btn" onClick={(e) => addFavourite(e, movie.imdbID)}>
+                                <img src={isMovieLiked(movie.imdbID) ? fullHeartIcon : emptyHeartIcon} />
+                            </div>
                             <div className="movie-info">
-                                <div className="movie-title" onClick={() => addFavourite(movie.Title)}>
+                                <div className="movie-title">
                                     {movie.Title}
                                 </div>
                                 <div className="movie-year">
@@ -33,7 +58,12 @@ export default function GridView(props: Props) {
                     </div>
             )}
             </div>) :
-            (<Movie imdbID={activeMovie} setActiveMovie={setActiveMovie}/>)}
+            (<Movie
+                imdbID={activeMovie}
+                setActiveMovie={setActiveMovie}
+                isFavourite={isMovieLiked(activeMovie)}
+                addToFavourites={addFavourite}
+            />)}
         </div>
   );
 }
